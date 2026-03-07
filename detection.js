@@ -497,7 +497,7 @@ export class DetectionEngine {
       poseDets = this._postprocessPose(out.output0 || out[Object.keys(out)[0]], meta);
     } catch(e) { console.warn('Pose:', e.message); }
     let objDets = [];
-    if (_objSession) {
+    if (_objSession && this._fpsFrames % 2 === 0) {
       try {
         const out = await _objSession.run({ images: tensor });
         objDets = this._postprocessObj(out.output0 || out[Object.keys(out)[0]], meta);
